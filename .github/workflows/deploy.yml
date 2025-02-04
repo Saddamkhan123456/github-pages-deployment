@@ -1,4 +1,4 @@
-name: Deploy Branch 1
+name: Deploy application1
 on:
   push:
     branches:
@@ -7,11 +7,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
+      - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Build site
+        run: npm run build 
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/ 
-          publish_branch: gh-pages  
+          publish_dir: build/
+          publish_branch: gh-pages
